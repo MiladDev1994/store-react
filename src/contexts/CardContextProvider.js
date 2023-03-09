@@ -12,7 +12,7 @@ export const basket = {
 export const addNew = (state , product , action) => {
     if (action === "ADD"){
         state.items.push(product)
-        console.log(state)
+        // console.log(basket.items)
     }
 
 }

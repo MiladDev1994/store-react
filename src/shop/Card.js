@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 // import {Link} from "react-router-dom";
 import {addNew} from "../contexts/CardContextProvider";
 import {basket} from "../contexts/CardContextProvider";
@@ -6,18 +6,20 @@ import {basket} from "../contexts/CardContextProvider";
 const Card = ({productData}) => {
 
     const {image , title , id} = productData;
-
+    const [bas , setBas] = useState(basket) ;
 
     const isIn = (is , id) => {
         const result = !!is.items.find(item => item.id === id)
         // console.log(result)
         // return result;
     }
+    // console.log(basket)
     //
-    // useEffect(() => {
-    //     console.log("ok")
-    // } , [{basket}])
+    useEffect(() => {
+        console.log(basket.items)
+    } , [bas])
 
+    // console.log("ok")
 
     return (
         <div className="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 overflow-hidden p-3" style={{transition:"0.3s" , height:"400px"}}>
@@ -30,7 +32,7 @@ const Card = ({productData}) => {
                         <button onClick={() => addNew(basket , productData , "ADD")}>Add</button> :
                         <button>123</button>
                 }
-                <div>{console.log(basket)}</div>
+                {/*<div>{console.log(basket)}</div>*/}
 
             </div>
 
