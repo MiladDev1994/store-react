@@ -1,13 +1,15 @@
 import React, {useContext, useEffect, useState} from 'react';
 // import {Link} from "react-router-dom";
-import {basket} from "../contexts/CardContextProvider";
+// import {basket} from "../contexts/CardContextProvider";
+import {CardContext} from "../contexts/CardContextProvider";
 // import {addNew} from "../contexts/CardContextProvider";
 
 const Card = ({productData}) => {
 
     const {image , title , id} = productData;
-    const [bas , setBas] = useState(basket) ;
+    const {bas, setBas , changeBasket} = useContext(CardContext) ;
 
+    // console.log(bas)
     const isIn = (is , id) => {
         const result = !!is.items.find(item => item.id === id)
         return result;
@@ -20,53 +22,13 @@ const Card = ({productData}) => {
         }
     }
 
-    const plusItem = (basket , product) => {
-        let findIndex = basket.items.findIndex(items => items.id === product.id);
-        basket.items[findIndex].quantity++;
-        return {
-            ...basket
-        };
-    }
-
-    const minusItem = (basket , product) => {
-        let findIndex = basket.items.findIndex(items => items.id === product.id);
-        basket.items[findIndex].quantity--;
-        return {
-            ...basket
-        };
-    }
-
-    const removeItem = (basket , product) => {
-        let remove = basket.items.filter(item => item.id !== product.id)
-        return{
-            ...basket,
-            items : remove,
-        }
-    }
 
 
-    const changeBasket = (basket , product , action) => {
-        switch (action){
-            case "ADD" :
-                setBas({...bas , ...basket.items.push({...product , quantity:1})});
-                break;
 
-            case "PLUS" :
-                setBas(plusItem(basket , product))
-                break;
 
-            case "MINUS" :
-                setBas(minusItem(basket , product))
-                break;
-
-            case "REMOVE" :
-                setBas(removeItem(basket , product))
-                break;
-        }
-    }
 
     useEffect(() => {
-        console.log(basket)
+        // console.log(bas)
     } , [bas])
 
 
@@ -80,6 +42,7 @@ const Card = ({productData}) => {
                     {quantity(bas, productData.id) === 1 && <button onClick={() => changeBasket(bas , productData , "REMOVE")}>*</button>}
                     {quantity(bas, productData.id) > 1 && <button onClick={() => changeBasket(bas , productData , "MINUS")}>-</button>}
                     {quantity(bas, productData.id) && <button>{quantity(bas, productData.id)}</button>}
+
                     {
                         !isIn(bas , productData.id) ?
                             <button onClick={() => changeBasket(bas , productData , "ADD")}>Add</button> :
