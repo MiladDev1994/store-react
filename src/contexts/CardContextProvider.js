@@ -4,18 +4,19 @@ export const CardContext = createContext();
 
 export const basket = {
     items: [],
-    SQuantity: 1,
+    SQuantity: 0,
     SPrice: 0,
     status: false,
 }
 
-export const addNew = (state , product , action) => {
-    if (action === "ADD"){
-        state.items.push(product)
-        // console.log(basket.items)
-    }
-
-}
+// export const addNew = (state , product , action) => {
+//     if (action === "ADD"){
+//         state.items.push(product)
+//         return state;
+//         // console.log(state)
+//     }
+//
+// }
 
 // const CardContextProvider = ({children}) => {
 //
